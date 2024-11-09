@@ -1,18 +1,23 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
+# Use an official Node.js runtime as a parent image
+FROM node:18
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements.txt and install dependencies
-COPY app/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Copy the current directory contents into the container at /app
-COPY app /app
+# Install dependencies
+RUN npm install
 
-# Expose the port the app runs on
-EXPOSE 8000
+# Copy the rest of the application code
+COPY . .
 
-# Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Build the Next.js application
+RUN npm run build
+
+# Expose port 3000
+EXPOSE 3000
+
+# Define the command to run the app
+CMD ["npm", "start"]
