@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Print working directory
+      run: pwd
+    - name: List files in the root directory
+      run: ls -la
+    - name: Change to project directory
+      run: cd nextjs-fastapi-framework-main && ls -la
+    - name: Build the Docker image
+      working-directory: nextjs-fastapi-framework-main
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
