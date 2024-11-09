@@ -17,7 +17,7 @@ jobs:
     - name: List files in the root directory
       run: ls -la
     - name: Change to project directory
-      run: cd fastapiWithNextJS-main && ls -la
+      run: cd fastapiWithNextJS && ls -la
     - name: Build the Docker image
       working-directory: fastapiWithNextJS-main
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
