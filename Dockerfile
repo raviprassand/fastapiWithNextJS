@@ -4,7 +4,7 @@ FROM node:18
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json to leverage Docker layer caching
 COPY package*.json ./
 
 # Install dependencies
